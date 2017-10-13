@@ -9,7 +9,6 @@ import { firebaseAuth } from "../config/constants";
 import NavigationBar from "./../components/navbar.js";
 import MangaReader from "./../scenes/MangaReader";
 import MangaRaderPage from "./../scenes/MangaReaderPage";
-import Dashboard from "./../scenes/Dashboard";
 import { connect } from "react-redux";
 import "./../css/BootstrapOverride.css";
 
@@ -59,17 +58,6 @@ class App extends Component {
                   mangaData={this.props.data.mangaDb}
                 />
               )}
-            />;
-            <Route
-              path="/dashboard"
-              render={() =>
-                this.state.authed === true ? (
-                  <Dashboard />
-                ) : (
-                  <Redirect
-                    to={{ pathname: "/", state: { from: this.props.location } }}
-                  />
-                )}
             />;
           </Switch>
         </div>

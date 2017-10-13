@@ -11,6 +11,8 @@ import Button from "material-ui/Button";
 import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import ListSubheader from "material-ui/List/ListSubheader";
 import HomeIcon from "material-ui-icons/Home";
+import CloudCirleIcon from "material-ui-icons/CloudCircle";
+import FileDownloadIcon from "material-ui-icons/FileDownload";
 import ViewHeadlineIcon from "material-ui-icons/ViewHeadline";
 import PermMediaIcon from "material-ui-icons/PermMedia";
 import ContactMailIcon from "material-ui-icons/ContactMail";
@@ -18,6 +20,8 @@ import AccountBoxIcon from "material-ui-icons/AccountBox";
 import LoginDialogueButton from "./../components/login";
 import Dialog, { DialogTitle } from "material-ui/Dialog";
 import Divider from "material-ui/Divider";
+import { logout, fetchAnkiDb } from "../helpers/auth";
+import exportAnki from "./ExportToAnki"
 
 const styles = {
   list: {
@@ -50,6 +54,14 @@ class NavigationBar extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
+  handleLogout(){
+    logout();
+  }
+
+  handleExportAnki(){
+    exportAnki();
+  }
+
   handleClickOpenLang = () => {
     this.setState({
       openLang: true
@@ -65,7 +77,7 @@ class NavigationBar extends React.Component {
   render() {
     const sideList = (
       <div>
-        <List subheader={<ListSubheader>dfejza</ListSubheader>}>
+        <List subheader={<ListSubheader>Manga Learner</ListSubheader>}>
           <Link to="/">
             <ListItem button>
               <ListItemIcon>
@@ -74,24 +86,34 @@ class NavigationBar extends React.Component {
               <ListItemText primary="Manga Library" />
             </ListItem>
           </Link>
-          <Divider />
+          <br /><Divider /><br />
           {!this.props.authed && (
             <LoginDialogueButton
-              onDrawerClose={this.toggleDrawer("right", false)}
+              onDrawerClose={this.toggleDrawer("right", false).bind(this)}
               authed={this.props.authed}
               text="Login"
             />
           )}
           {this.props.authed && (
             <div>
-              <Link to="/dashboard">
-                <ListItem button>
-                  <ListItemIcon>
-                    <AccountBoxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Account" />
-                </ListItem>
-              </Link>
+              <ListItem button onClick={this.handleExportAnki} >
+                <ListItemIcon>
+                  <CloudCirleIcon />
+                </ListItemIcon>
+                <ListItemText primary="View Saved Flashcards" />
+              </ListItem>
+              <ListItem button onClick={this.handleExportAnki} >
+                <ListItemIcon>
+                  <FileDownloadIcon />
+                </ListItemIcon>
+                <ListItemText primary="Export to Anki" />
+              </ListItem>
+              <ListItem button onClick={this.handleLogout}>
+                <ListItemIcon>
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItem>
             </div>
           )}
         </List>
@@ -112,13 +134,7 @@ class NavigationBar extends React.Component {
           width={300}
           onRequestClose={this.toggleDrawer("right", false)}
         >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer("right", false)}
-          >
             {sideList}
-          </div>
         </Drawer>
       </div>
     );
