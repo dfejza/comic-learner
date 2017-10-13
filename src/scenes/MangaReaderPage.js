@@ -307,7 +307,7 @@ class MangaSinglePage extends React.Component {
             top: this.state.y2
           }}
         >
-          <Button onClick={this.createCrop.bind(this)} color="primary">
+          <Button disabled onClick={this.createCrop.bind(this)} color="primary">
             Translate
           </Button>
           <Button onClick={this.createCrop.bind(this)} color="primary">
