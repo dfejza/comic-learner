@@ -1,0 +1,542 @@
+html * {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background: linear-gradient(141deg, #f8ffff 0%, #ccfff7 51%, #d7ffd9 75%);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#contactMe {
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.MuiSnackbarContent-root-362 {
+  background-color: white;
+  color: black;
+}
+
+.profileCard {
+  /*  width: 30%;*/
+  margin: 0 auto;
+  /*  margin-top: 10%;*/
+  display: -webkit-box;
+  display: -moz-box;
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+}
+
+.profileCard #info {
+  margin-left: 30px;
+  line-height: 2.8rem !important;
+}
+
+.profileCard img {
+  width: 10rem;
+  display: block;
+  margin: 0;
+}
+
+.LatestWork {
+  /*  width: 30%;*/
+  margin: 0 auto;
+}
+
+.AboutMeGridLeftSide {
+}
+
+#AboutMeGrid {
+  margin-top: 10%;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  height: 50px;
+}
+
+.headerMe {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0);
+  color: #000000;
+  min-height: 40px;
+}
+
+.navbar-brand {
+  color: rgba(66, 66, 66, 0.29) !important;
+}
+.navbar-inverse {
+  background-image: none;
+  border-color: rgba(8, 8, 8, 0);
+  min-height: 40px;
+}
+
+.centered-container {
+  background: linear-gradient(141deg, #f8ffff 0%, #ccfff7 51%, #d7ffd9 75%);
+  height: 100%;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: distribute;
+  -moz-box-pack: distribute;
+  box-pack: distribute;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  -o-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: distribute;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+}
+
+.true-center {
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+p,
+.paragraph {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/*.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  -moz-box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.10);
+  -webkit-box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.10);
+  box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.10);
+}*/
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: rgba(0, 0, 0, 0.46);
+}
+/*On dropdown menus, when a item is selected the color of the font becomes unreadable. Change color*/
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: #313131;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
+  color: #000;
+  /* font-weight: bold; */
+  background-color: rgba(227, 227, 227, 0);
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+  text-shadow: none;
+  color: #666666;
+}
+
+.panel-body {
+  word-wrap: break-word;
+  background-color: #fdfdfd;
+}
+@media (min-width: 800px) {
+  /* Desktop*/
+  .container {
+    /*padding-bottom: 2%;*/
+  }
+  #chatMessageBox {
+    width: 600px;
+  }
+}
+#chatUserName {
+  width: 100px;
+}
+
+@media (max-width: 800px) {
+  /* Remove the left and right borders in mobile */
+  .container {
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 2%;
+  }
+  .LatestWork {
+    border-bottom: none !important;
+    border-top: none !important;
+  }
+  .AboutMeGridLeftSide {
+    border-right: none !important;
+  }
+
+  .ListBottom {
+    color: grey;
+  }
+
+  #AboutMeGrid {
+    border-bottom: none !important;
+    border-top: none !important;
+  }
+  .popover.bottom {
+    max-width: 100% !important;
+    width: 100%;
+  }
+
+  /* Remove the page indicator underline */
+  .navbar-inverse .navbar-nav > .active > a,
+  .navbar-inverse .navbar-nav > .active > a:focus,
+  .navbar-inverse .navbar-nav > .active > a:hover {
+    border-bottom: 0px solid;
+  }
+
+  /* Color of the three bars in mobile */
+  .navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #131212;
+  }
+  #imagefloatleft {
+    width: 100% !important;
+  }
+}
+
+.card-grid {
+  /* margin-left: 20%;
+  margin-right: 20%; */
+  margin-top: 4%;
+}
+
+#imagefloatleft {
+  width: 350px;
+}
+#imgHolderAboutMe {
+  float: left;
+  padding-left: 10px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+}
+
+#RepoCard {
+  max-width: 400px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#RepoHeader {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#ProjectListingsHeader {
+  text-align: center;
+}
+
+#githubevents {
+  height: 500px !important;
+}
+/* .panel-body {
+  padding: 0px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+} */
+.thumbnail {
+  border: 0px;
+  padding: 0px;
+  margin-top: -5px;
+  opacity: 0.8;
+}
+
+#floatrightmail {
+  height: 50px;
+  width: 50px;
+  float: right;
+}
+
+.page-header {
+  padding-bottom: 9px;
+  margin: 10px 0 20px;
+  border-bottom: 1px solid #ded5d5;
+}
+
+#submitComment {
+  float: right;
+}
+
+#floatRight {
+  float: right;
+}
+#floatLeft {
+  float: left;
+}
+
+/*Chat page stuff*/
+#inlineMessage {
+  display: inline-block;
+}
+
+#chat {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.chatInput {
+  background-color: rgba(0, 0, 0, 0);
+  outline: 0px !important;
+  -webkit-appearance: none;
+  border: 0px solid #ccc;
+  border-style: solid;
+  border-bottom: 1px solid grey;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* This is for the underconstruction notifier */
+#terminalText {
+  font-family: monospace;
+  font-size: 1em;
+}
+#terminalText:after {
+  content: "_";
+  opacity: 0;
+  animation: cursor 1s infinite;
+}
+@keyframes cursor {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*Scrollbar Style*/
+div::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+#mangaSelection {
+  max-width: 540px;
+  margin: 0 auto;
+}
+.carousel-indicators {
+  visibility: hidden;
+}
+
+#mangaPageDiv {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#textAlignCenter {
+  text-align: center;
+}
+
+#mangaPage {
+  width: 100%;
+  cursor: pointer;
+  pointer-events: none;
+}
+#mangaPage:active {
+  width: 100%;
+  cursor: move;
+  pointer-events: none;
+}
+
+#loading {
+  width: 100%;
+  cursor: wait;
+}
+#loaded {
+  cursor: pointer;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+/* Color/shape of Login Dropdown */
+.popover {
+  max-width: 100% !important;
+  width: 320px;
+  opacity: 0.9;
+}
+.loginMenu {
+  max-width: 320px !important;
+}
+
+#regSignin {
+  width: 100%;
+}
+#googleSignin {
+  width: 95%;
+  background-color: #e24825;
+  color: #fff;
+}
+#facebookSignin {
+  width: 95%;
+  background-color: #385499;
+  color: #fff;
+}
+.popover > .arrow,
+.popover > .arrow:after {
+  visibility: hidden;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 15s linear;
+}
+
+@keyframes App-logo-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(0deg);
+  }
+  85% {
+    transform: rotate(10deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  95% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.Other {
+  text-align: right;
+  position: absolute;
+  /* top: 75%; */
+  bottom: 1em;
+  right: 1em;
+}
+
+.projectGithub {
+  float: right;
+  position: relative;
+}
+
+#imageCropping {
+  pointer-events: none;
+  cursor: crosshair;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  width: 0;
+  box-shadow: 0 0 0 9999em rgba(0, 0, 0, 0.5);
+  border: 3px dotted red;
+  z-index: 2;
+  &--disabled {
+    cursor: inherit;
+  }
+  &__image {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+#cropConfirmation {
+  cursor: crosshair;
+  position: absolute;
+  display: none;
+  background-color: white;
+  margin-top: 10px;
+  z-index: 3;
+}
