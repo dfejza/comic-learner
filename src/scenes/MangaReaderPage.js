@@ -113,6 +113,7 @@ export default class MangaReaderPage extends React.Component {
             volume={this.state.volume}
             page={this.state.page}
             parentClick={this.incrementPage}
+            authed={this.props.authed}
             storeCardImage={this.setCardImage.bind(this)}
           />
         </div>
@@ -120,6 +121,9 @@ export default class MangaReaderPage extends React.Component {
           cardImage={this.state.cardImage}
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
+          manga={this.state.manga}
+          volume={this.state.volume}
+          page={this.state.page}
         />
       </div>
     );
@@ -140,7 +144,9 @@ class MangaSinglePage extends React.Component {
       width: 0,
       height: 0,
       cropping: false,
-      cropConfirmDialogue: false
+      cropConfirmDialogue: false,
+      invertedX: false,
+      invertedY: false
     };
     this.cropAfterLoad = this.cropAfterLoad.bind(this);
   }
@@ -160,8 +166,6 @@ class MangaSinglePage extends React.Component {
     const docEl = document.documentElement;
     const rectTop = rect.top + window.pageYOffset - docEl.clientTop;
     const rectLeft = rect.left + window.pageXOffset - docEl.clientLeft;
-
-    console.log(rect);
 
     this.setState({
       imgXOffset: rectLeft,
@@ -226,20 +230,26 @@ class MangaSinglePage extends React.Component {
 
   ondragend(e) {
     e.preventDefault();
+
     this.setState({
+      invertedX: e.pageX < this.state.x1 ? true : false, //check if the user drags left, inverted
+      width:
+        e.pageX < this.state.x1
+          ? this.state.x1 - e.pageX
+          : e.pageX - this.state.x1,
       x2: e.pageX,
       y2: e.pageY,
-      height: e.pageY - this.state.y1,
-      width: e.pageX - this.state.x1
+      invertedY: e.pageY < this.state.y1 ? true : false,
+      height:
+        e.pageY < this.state.y1
+          ? this.state.y1 - e.pageY
+          : e.pageY - this.state.y1
     });
   }
 
   ondragenddone(e) {
+    this.ondragend(e);
     this.setState({
-      x2: e.pageX,
-      y2: e.pageY,
-      height: e.pageY - this.state.y1,
-      width: e.pageX - this.state.x1,
       cropConfirmDialogue: true
     });
     document.getElementById("cropConfirmation").style.display = "block";
@@ -267,8 +277,12 @@ class MangaSinglePage extends React.Component {
 
     ctx.drawImage(
       loadedImg,
-      this.state.x1 - this.state.imgXOffset,
-      this.state.y1 - this.state.imgYOffset,
+      (this.state.invertedX
+        ? this.state.x1 - this.state.width
+        : this.state.x1) - this.state.imgXOffset,
+      (this.state.invertedY
+        ? this.state.y1 - this.state.height
+        : this.state.y1) - this.state.imgYOffset,
       this.state.width,
       this.state.height,
       0,
@@ -291,8 +305,12 @@ class MangaSinglePage extends React.Component {
           style={{
             height: this.state.height,
             width: this.state.width,
-            left: this.state.x1,
-            top: this.state.y1
+            left: this.state.invertedX
+              ? this.state.x1 - this.state.width
+              : this.state.x1,
+            top: this.state.invertedY
+              ? this.state.y1 - this.state.height
+              : this.state.y1
           }}
           ref={node => {
             this.crop = node;
@@ -308,11 +326,19 @@ class MangaSinglePage extends React.Component {
           }}
         >
           <Button disabled onClick={this.createCrop.bind(this)} color="primary">
-            Translate
+            Translate comming soon
           </Button>
-          <Button onClick={this.createCrop.bind(this)} color="primary">
-            Create Card
-          </Button>
+
+          {this.props.authed ?
+            <Button onClick={this.createCrop.bind(this)} color="primary">
+              Create Card
+            </Button>
+            :
+            <Button disabled onClick={this.createCrop.bind(this)} color="primary">
+              Login to Create Cards
+            </Button>
+          }
+
           <Button onClick={this.cancelCrop.bind(this)} color="accent">
             Cancel
           </Button>

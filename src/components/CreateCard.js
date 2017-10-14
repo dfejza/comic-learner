@@ -27,7 +27,7 @@ class CreateCard extends React.Component {
   };
 
   saveCardToDb() {
-    saveCard({ front: this.props.cardImage, back: this.state.back });
+    saveCard({ front: this.props.cardImage, back: this.state.back, manga : this.props.manga, volume : this.props.volume, page : this.props.page });
     this.props.onRequestClose();
   }
 

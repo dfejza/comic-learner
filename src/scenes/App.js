@@ -11,6 +11,7 @@ import MangaReader from "./../scenes/MangaReader";
 import MangaRaderPage from "./../scenes/MangaReaderPage";
 import { connect } from "react-redux";
 import "./../css/BootstrapOverride.css";
+import FlashCardViewer from "./FlashcardViewer"
 
 class App extends Component {
   state = {
@@ -48,14 +49,24 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={() => <MangaReader store={this.props} />}
+              render={() => <MangaReader authed={this.state.authed} store={this.props} />}
             />
             <Route
               path="/mangareader/:manga/:volume/:page"
               render={props => (
                 <MangaRaderPage
                   {...props}
+                  authed={this.state.authed}
                   mangaData={this.props.data.mangaDb}
+                />
+              )}
+            />;
+            <Route
+              path="/flashcardviewer"
+              render={props => (
+                <FlashCardViewer
+                  {...props}
+                  authed={this.state.authed}
                 />
               )}
             />;

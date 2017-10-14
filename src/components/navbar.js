@@ -21,7 +21,7 @@ import LoginDialogueButton from "./../components/login";
 import Dialog, { DialogTitle } from "material-ui/Dialog";
 import Divider from "material-ui/Divider";
 import { logout, fetchAnkiDb } from "../helpers/auth";
-import exportAnki from "./ExportToAnki"
+import ExportDialogueButton from "./ExportDialogue";
 
 const styles = {
   list: {
@@ -58,10 +58,6 @@ class NavigationBar extends React.Component {
     logout();
   }
 
-  handleExportAnki(){
-    exportAnki();
-  }
-
   handleClickOpenLang = () => {
     this.setState({
       openLang: true
@@ -96,18 +92,15 @@ class NavigationBar extends React.Component {
           )}
           {this.props.authed && (
             <div>
-              <ListItem button onClick={this.handleExportAnki} >
-                <ListItemIcon>
-                  <CloudCirleIcon />
-                </ListItemIcon>
-                <ListItemText primary="View Saved Flashcards" />
-              </ListItem>
-              <ListItem button onClick={this.handleExportAnki} >
-                <ListItemIcon>
-                  <FileDownloadIcon />
-                </ListItemIcon>
-                <ListItemText primary="Export to Anki" />
-              </ListItem>
+              <Link to="/flashcardviewer">
+                <ListItem button onClick={this.handleExportAnki} >
+                  <ListItemIcon>
+                    <CloudCirleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="View Saved Flashcards" />
+                </ListItem>
+              </Link>
+              <ExportDialogueButton />
               <ListItem button onClick={this.handleLogout}>
                 <ListItemIcon>
                   <AccountBoxIcon />

@@ -61,6 +61,7 @@ export function saveUser(user) {
 
 export function saveCard(card) {
   var user = firebaseAuth().currentUser;
+  console.log(card);
   var cardKey = firebase
     .database()
     .ref(`users/${user.uid}`)
@@ -70,7 +71,10 @@ export function saveCard(card) {
     .child(`users/${user.uid}/anki/${cardKey}`)
     .set({
       front: card.front,
-      back: card.back
+      back: card.back,
+      manga : card.manga,
+      volume : card.volume,
+      page : card.page
     })
     .then(() => card);
 }
@@ -81,4 +85,21 @@ export function fetchAnkiDb() {
     .database()
     .ref(`users/${user.uid}/anki`)
     .once("value");
+}
+
+export function fetchAnkiDbWhole() {
+  firebase.auth().onAuthStateChanged( user => {
+    firebase
+      .database()
+      .ref(`users/${user.uid}/anki`)
+      .once("value")
+      .then( data => {
+        var database = [];
+        for (const [key, value] of Object.entries(data.val())) {
+          database.push(value);
+        }
+          console.log(database);
+        return database;
+      })
+  });
 }
