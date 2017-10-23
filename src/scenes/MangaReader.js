@@ -41,7 +41,10 @@ class MangaReader extends React.Component {
         >
           <Grid item xs={12} sm={11} md={10} lg={9}>
             <Typography type="display3" gutterBottom>
-              Manga Selection <hr />
+              Manga Selection
+            </Typography>
+            <Typography type="Subheading" gutterBottom>
+              Select from the following manga below.<br /> Simply click on the image to navigate to the next page.<br /> Click and drag the mouse to crop a specified portion of the image and make a flash card out of it (must be logged in for this feature).<br /> Built in character recognition and translation via OCR coming soon. <hr />
             </Typography>
             <Grid container justify="center" align="stretch">
               {this.props.store.data.mangaDb.map((manga, index) => (
