@@ -66,6 +66,7 @@ export default class MangaReaderPage extends React.Component {
 
   incrementPage() {
     var nextPage = parseInt(this.state.page, 10) + 1;
+    // Following function is used to show meaningful data on the URL
     if (nextPage <= this.state.pageCount) {
       this.setState({ page: nextPage }, () => {
         this.nextPage();
@@ -73,6 +74,7 @@ export default class MangaReaderPage extends React.Component {
     }
   }
 
+  // Update the URL on the client side
   nextPage() {
     this.props.history.push(
       "/mangareader/" +
@@ -84,6 +86,9 @@ export default class MangaReaderPage extends React.Component {
     );
   }
 
+  // When the user "crops" an image, the serial image data is stored on the state of the base component (this).
+  // Then the popup to guide the user on making the flash card is appeard through handleClickOpen() function.
+  // The popup will grab the image stored on the state.
   setCardImage(iCardImage) {
     this.setState({ cardImage: iCardImage }, () => {
       this.handleClickOpen();
@@ -112,12 +117,13 @@ export default class MangaReaderPage extends React.Component {
             manga={this.state.manga}
             volume={this.state.volume}
             page={this.state.page}
-            parentClick={this.incrementPage}
+            parentClick={this.incrementPage} // The parent (this) controls the page. The child (MangaSinglePage) needs to tell the parent when the user request the next page
             authed={this.props.authed}
-            storeCardImage={this.setCardImage.bind(this)}
+            storeCardImage={this.setCardImage.bind(this)} // Cropped image
           />
         </div>
         <CreateCardWrapped
+        // The popup used to finalize the flashcard creation. Only viewable on the "open" prop, which is enabled after a cropping
           cardImage={this.state.cardImage}
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
@@ -153,6 +159,7 @@ class MangaSinglePage extends React.Component {
 
   componentDidMount() {}
 
+  // A full page loading decal
   changeLoading() {
     this.setState({ imageStatus: "loading" });
     document.getElementById("overlay").style.display = "block";
@@ -162,6 +169,7 @@ class MangaSinglePage extends React.Component {
     this.setState({ imageStatus: "loaded" });
     document.getElementById("overlay").style.display = "none";
 
+    // Get abosolute coordinates, so we can properly crop images
     const rect = this.refs.mangaslide.getBoundingClientRect();
     const docEl = document.documentElement;
     const rectTop = rect.top + window.pageYOffset - docEl.clientTop;
@@ -230,7 +238,6 @@ class MangaSinglePage extends React.Component {
 
   ondragend(e) {
     e.preventDefault();
-
     this.setState({
       invertedX: e.pageX < this.state.x1 ? true : false, //check if the user drags left, inverted
       width:
