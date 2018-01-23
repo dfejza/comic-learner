@@ -6,7 +6,7 @@ Comic learner is a web platform used to study Japanese in a productive manner. T
   - Firebase backend
   - Magic
 
-##### This project is currently under development. The current state can be viewed on http://mangalearner.xyz
+##### This project is currently under development. The current state can be viewed on manga.dfejza.com
 ##### Backend code is not shared on this repositry at the moment
 
  
