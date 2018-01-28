@@ -119,11 +119,11 @@ class LoginDialogue extends React.Component {
   };
 
   handleRequestClose = () => {
-    this.props.onRequestClose(this.props.selectedValue);
+    this.props.onClose(this.props.selectedValue);
   };
 
   handleListItemClick = value => {
-    this.props.onRequestClose(value);
+    this.props.onClose(value);
   };
 
   handleChange = name => event => {
@@ -133,10 +133,10 @@ class LoginDialogue extends React.Component {
   };
 
   render() {
-    const { classes, onRequestClose, selectedValue, ...other } = this.props;
+    const { classes, onClose, selectedValue, ...other } = this.props;
 
     return (
-      <Dialog maxWidth="xs" onRequestClose={this.handleRequestClose} {...other}>
+      <Dialog maxWidth="xs" onClose={this.handleRequestClose} {...other}>
         <DialogTitle>Login</DialogTitle>
         <div>
           <Grid container spacing={0}>
@@ -271,11 +271,10 @@ class LoginDialogueButton extends React.Component {
         </ListItem>
         <LoginDialogueWrapped
           authed={this.props.authed}
-          onDrawerClose={this.props.onDrawerClose}
           contact={this.props.contact}
           selectedValue={this.state.selectedValue}
           open={this.state.open}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
         />
       </div>
     );

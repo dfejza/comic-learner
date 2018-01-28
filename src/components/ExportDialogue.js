@@ -58,7 +58,7 @@ class ExportDialogue extends React.Component {
     const { classes, onRequestClose, selectedValue, ...other } = this.props;
 
     return (
-      <Dialog maxWidth="xs" onRequestClose={this.handleRequestClose} {...other}>
+      <Dialog maxWidth="xs" onClose={this.handleRequestClose} {...other}>
         <DialogTitle>Export to anki</DialogTitle>
         <DialogContent>
               This will generate a tab separated file in which you can import

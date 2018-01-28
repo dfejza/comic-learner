@@ -1,5 +1,6 @@
 import { ref, firebaseAuth } from "../config/constants";
 import firebase from "firebase";
+import { saveCardToDB } from './flashcardsApi'
 
 export function auth(email, pw) {
   return firebaseAuth()
@@ -60,23 +61,32 @@ export function saveUser(user) {
 }
 
 export function saveCard(card) {
-  var user = firebaseAuth().currentUser;
-  console.log(card);
-  var cardKey = firebase
-    .database()
-    .ref(`users/${user.uid}`)
-    .child("anki")
-    .push().key;
-  return ref
-    .child(`users/${user.uid}/anki/${cardKey}`)
-    .set({
-      front: card.front,
-      back: card.back,
-      manga : card.manga,
-      volume : card.volume,
-      page : card.page
-    })
-    .then(() => card);
+  var email = firebaseAuth().currentUser.email;
+  var token = firebaseAuth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+    // Send token to your backend and cardinfo to backend
+    saveCardToDB({token, email, card});
+
+  }).catch(function(error) {
+    console.log(error);
+    // Handle error
+  });
+
+
+  // var cardKey = firebase
+  //   .database()
+  //   .ref(`users/${user.uid}`)
+  //   .child("anki")
+  //   .push().key;
+  // return ref
+  //   .child(`users/${user.uid}/anki/${cardKey}`)
+  //   .set({
+  //     front: card.front,
+  //     back: card.back,
+  //     manga : card.manga,
+  //     volume : card.volume,
+  //     page : card.page
+  //   })
+  //   .then(() => card);
 }
 
 export function fetchAnkiDb() {

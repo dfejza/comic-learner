@@ -16,7 +16,7 @@ const styles = theme => ({
     width: "100%"
   }),
   card: {
-    maxWidth: 420
+    maxWidth: 520
   },
   media: {
     height: 600
@@ -43,7 +43,7 @@ class MangaReader extends React.Component {
             <Typography type="display3" gutterBottom>
               Manga Selection
             </Typography>
-            <Typography type="Subheading" gutterBottom>
+            <Typography type="subheading" gutterBottom>
               Select from the following manga below.<br /> Simply click on the image to navigate to the next page.<br /> Click and drag the mouse to crop a specified portion of the image and make a flash card out of it (must be logged in for this feature).<br /> Built in character recognition and translation via OCR coming soon. <hr />
             </Typography>
             <Grid container justify="center" align="stretch">

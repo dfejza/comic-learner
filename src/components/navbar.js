@@ -6,7 +6,7 @@ import React from "react";
 // Material components
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Drawer from "material-ui/Drawer";
+import Drawer from 'material-ui/Drawer';
 import Button from "material-ui/Button";
 import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import ListSubheader from "material-ui/List/ListSubheader";
@@ -85,7 +85,7 @@ class NavigationBar extends React.Component {
           <br /><Divider /><br />
           {!this.props.authed && (
             <LoginDialogueButton
-              onDrawerClose={this.toggleDrawer("right", false).bind(this)}
+              onClose={this.toggleDrawer("right", false).bind(this)}
               authed={this.props.authed}
               text="Login"
             />
@@ -125,7 +125,7 @@ class NavigationBar extends React.Component {
           anchor="right"
           open={this.state.right}
           width={300}
-          onRequestClose={this.toggleDrawer("right", false)}
+          onClose={this.toggleDrawer("right", false)}
         >
             {sideList}
         </Drawer>

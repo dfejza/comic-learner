@@ -1,6 +1,6 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
-import { Pagination } from "react-bootstrap";
+//import { Pagination } from "react-bootstrap";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
 import CreateCardWrapped from "./../components/CreateCard";
@@ -98,7 +98,7 @@ export default class MangaReaderPage extends React.Component {
   render() {
     return (
       <div id="textAlignCenter">
-        <Pagination
+        {/* <Pagination
           id="mangaPageDiv"
           prev
           next
@@ -110,7 +110,7 @@ export default class MangaReaderPage extends React.Component {
           maxButtons={7}
           activePage={parseInt(this.state.page, 10)}
           onSelect={this.handleSelect}
-        />
+        /> */}
         <div>
           <MangaSinglePage
             id="mangaPageDiv"
