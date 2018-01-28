@@ -61,10 +61,9 @@ export function saveUser(user) {
 }
 
 export function saveCard(card) {
-  var email = firebaseAuth().currentUser.email;
-  var token = firebaseAuth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+  firebaseAuth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
     // Send token to your backend and cardinfo to backend
-    saveCardToDB({token, email, card});
+    saveCardToDB({idToken, card});
 
   }).catch(function(error) {
     console.log(error);
