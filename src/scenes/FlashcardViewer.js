@@ -10,7 +10,7 @@ import Table, {
   TableRow
 } from "material-ui/Table";
 import Paper from "material-ui/Paper";
-import { fetchAnkiDbWhole } from "../helpers/auth";
+import { fetchAnkiDbWhole, getCards } from "../helpers/auth";
 import firebase from "firebase";
 import Dialog from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
@@ -39,19 +39,11 @@ class FlashCardViewer extends React.Component {
 
   componentDidMount() {
     var database = [];
-    firebase.auth().onAuthStateChanged(user => {
-      firebase
-        .database()
-        .ref(`users/${user.uid}/anki`)
-        .once("value")
-        .then(data => {
-          for (const [key, value] of Object.entries(data.val())) {
-            database.push(value);
-          }
+    getCards().then(data => {
+      console.log(data);
+      this.setState({ data: data });
+    })
 
-          this.setState({ data: database });
-        });
-    });
   }
 
   render() {
@@ -66,6 +58,10 @@ class FlashCardViewer extends React.Component {
               <TableCell numeric>Page</TableCell>
               <TableCell numeric>Front</TableCell>
               <TableCell numeric>Back</TableCell>
+              <TableCell>Created On</TableCell>
+              <TableCell numeric># Reviewed</TableCell>
+              <TableCell numeric># Lapses</TableCell>
+              <TableCell numeric>Due Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,6 +72,10 @@ class FlashCardViewer extends React.Component {
                 <TableCell numeric>{n.page}</TableCell>
                 <TableCell ><Button onClick={this.createSortHandler(n)}>View</Button></TableCell>
                 <TableCell numeric>{n.back}</TableCell>
+                <TableCell numeric>{Date(n.created_at)}</TableCell>
+                <TableCell numeric>{n.num_reviews}</TableCell>
+                <TableCell numeric>{n.num_lapses}</TableCell>
+                <TableCell numeric>{n.due_date}</TableCell>
               </TableRow>
             ))}
           </TableBody>

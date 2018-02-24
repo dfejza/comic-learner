@@ -1,6 +1,6 @@
 import { ref, firebaseAuth } from "../config/constants";
 import firebase from "firebase";
-import { saveCardToDB } from './flashcardsApi'
+import {saveCardToDB, getCardsFromDB} from './flashcardsApi'
 
 export function auth(email, pw) {
   return firebaseAuth()
@@ -67,26 +67,23 @@ export function saveCard(card) {
 
   }).catch(function(error) {
     console.log(error);
-    // Handle error
+    // TODO Handle error
   });
-
-
-  // var cardKey = firebase
-  //   .database()
-  //   .ref(`users/${user.uid}`)
-  //   .child("anki")
-  //   .push().key;
-  // return ref
-  //   .child(`users/${user.uid}/anki/${cardKey}`)
-  //   .set({
-  //     front: card.front,
-  //     back: card.back,
-  //     manga : card.manga,
-  //     volume : card.volume,
-  //     page : card.page
-  //   })
-  //   .then(() => card);
 }
+
+export function getCards(){
+  return new Promise(function(resolve,reject){
+    firebase.auth().onAuthStateChanged(function(user) {
+      user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+        // Send token to your backend and cardinfo to backend
+        resolve(getCardsFromDB(idToken));
+      }).catch(function(error) {
+        console.log(error);
+        // TODO Handle error
+      });
+    });
+  });
+};
 
 export function fetchAnkiDb() {
   var user = firebaseAuth().currentUser;

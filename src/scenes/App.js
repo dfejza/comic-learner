@@ -19,6 +19,7 @@ class App extends Component {
     loading: true
   };
 
+  // TODO The user authentication occurs only at root. need to make this a global thing
   componentDidMount() {
     this.removeListener = firebaseAuth().onAuthStateChanged(user => {
       if (user) {
