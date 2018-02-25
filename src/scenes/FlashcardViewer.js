@@ -10,28 +10,41 @@ import Table, {
   TableRow
 } from "material-ui/Table";
 import Paper from "material-ui/Paper";
-import { fetchAnkiDbWhole, getCards } from "../helpers/auth";
+import { fetchAnkiDbWhole, getCards, deleteCards } from "../helpers/auth";
 import firebase from "firebase";
 import Dialog from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import Checkbox from 'material-ui/Checkbox';
 
 const styles = theme => ({
   paper: {
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
     cardImage: ""
+  },
+  button: {
+    margin: theme.spacing.unit,
+    float: "right",
   }
 });
 
 class FlashCardViewer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [], open: false };
+    this.state = { data: [], open: false, checkCount : 0};
   }
 
   createSortHandler = property => event => {
-   this.setState({cardImage : property.front, open : true});
- };
+    this.setState({cardImage : property.front, open : true});
+  };
+
+  handleCheck(key){
+    let tempData = this.state.data;
+    tempData[key].checked = !tempData[key].checked;
+    // Maintain a counter for number checked, for UI element 'DELELTE SELECTED' to appear
+    tempData[key].checked ? this.state.checkCount++ : this.state.checkCount--;
+    this.setState({ data : tempData });
+  };
 
   handleRequestClose = () => {
     this.setState({ open: false });
@@ -41,14 +54,32 @@ class FlashCardViewer extends React.Component {
     var database = [];
     getCards().then(data => {
       console.log(data);
+      //create a checkbox component for each data element
+      data.forEach((e, i) => {
+        e.checked = false;
+      });
       this.setState({ data: data });
     })
+  }
 
+  // Deleted the selected cards off the database
+  // Create a list of keys to delete, consisting of the 
+  deleteSelected(){
+    let deleteId = [];
+    for(var i = 0; i < this.state.data.length; i++){
+      if(this.state.data[i].checked){
+        deleteId.push(this.state.data[i].created_at);
+      }
+    }
+    deleteCards(deleteId).then( ()=>{
+      this.componentDidMount();
+    });
   }
 
   render() {
     const { classes } = this.props;
     return (
+      <div>
       <Paper className={classes.paper}>
         <Table>
           <TableHead>
@@ -62,6 +93,7 @@ class FlashCardViewer extends React.Component {
               <TableCell numeric># Reviewed</TableCell>
               <TableCell numeric># Lapses</TableCell>
               <TableCell numeric>Due Date</TableCell>
+              <TableCell>Delete?</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,10 +104,11 @@ class FlashCardViewer extends React.Component {
                 <TableCell numeric>{n.page}</TableCell>
                 <TableCell ><Button onClick={this.createSortHandler(n)}>View</Button></TableCell>
                 <TableCell numeric>{n.back}</TableCell>
-                <TableCell numeric>{Date(n.created_at)}</TableCell>
+                <TableCell numeric>{n.created_at}</TableCell>
                 <TableCell numeric>{n.num_reviews}</TableCell>
                 <TableCell numeric>{n.num_lapses}</TableCell>
                 <TableCell numeric>{n.due_date}</TableCell>
+                <TableCell><Checkbox checked={n.checked} onChange={()=> this.handleCheck(key)} value="" /> </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -83,9 +116,15 @@ class FlashCardViewer extends React.Component {
         <ShowFrontPictureWrapped
           cardimage={this.state.cardImage}
           open={this.state.open}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
         />
       </Paper>
+      {this.state.checkCount > 0 &&
+        <Button variant="raised" color="primary" className={classes.button} onClick={()=>this.deleteSelected()}>
+          DELETE SELECTED
+        </Button>
+      }
+      </div>
     );
   }
 }
@@ -104,7 +143,7 @@ class ShowFrontPicture extends React.Component {
   };
 
   handleListItemClick = value => {
-    this.props.onRequestClose(value);
+    this.props.onClose(value);
   };
 
   handleChange = (event, value) => {
@@ -112,11 +151,11 @@ class ShowFrontPicture extends React.Component {
   };
 
   render() {
-    const { classes, onRequestClose, selectedValue, ...other } = this.props;
+    const { classes, onClose, selectedValue, ...other } = this.props;
     const { value } = this.state;
 
     return (
-      <Dialog onRequestClose={this.props.onRequestClose} {...other}>
+      <Dialog onClose={this.props.onClose} {...other}>
         <img src={this.props.cardimage} alt="" />
       </Dialog>
     );
@@ -125,7 +164,7 @@ class ShowFrontPicture extends React.Component {
 
 ShowFrontPicture.propTypes = {
   classes: PropTypes.object.isRequired,
-  onRequestClose: PropTypes.func,
+  onClose: PropTypes.func,
   selectedValue: PropTypes.string
 };
 

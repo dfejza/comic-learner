@@ -1,6 +1,6 @@
 import { ref, firebaseAuth } from "../config/constants";
 import firebase from "firebase";
-import {saveCardToDB, getCardsFromDB} from './flashcardsApi'
+import {saveCardToDB, getCardsFromDB, deleteCardsFromDB} from './flashcardsApi'
 
 export function auth(email, pw) {
   return firebaseAuth()
@@ -85,27 +85,16 @@ export function getCards(){
   });
 };
 
-export function fetchAnkiDb() {
-  var user = firebaseAuth().currentUser;
-  return firebase
-    .database()
-    .ref(`users/${user.uid}/anki`)
-    .once("value");
-}
-
-export function fetchAnkiDbWhole() {
-  firebase.auth().onAuthStateChanged( user => {
-    firebase
-      .database()
-      .ref(`users/${user.uid}/anki`)
-      .once("value")
-      .then( data => {
-        var database = [];
-        for (const [key, value] of Object.entries(data.val())) {
-          database.push(value);
-        }
-          console.log(database);
-        return database;
-      })
+export function deleteCards(deleteIds){
+  return new Promise(function(resolve,reject){
+    firebase.auth().onAuthStateChanged(function(user) {
+      user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+        // Send token to your backend and cardinfo to backend
+        resolve(deleteCardsFromDB(idToken, deleteIds));
+      }).catch(function(error) {
+        console.log(error);
+        // TODO Handle error
+      });
+    });
   });
 }
