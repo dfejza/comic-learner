@@ -121,6 +121,7 @@ export default class MangaReaderPage extends React.Component {
             authed={this.props.authed}
             storeCardImage={this.setCardImage.bind(this)} // Cropped image
           />
+          Are crops not aligned correctly? Try refreshing.
         </div>
         <CreateCardWrapped
         // The popup used to finalize the flashcard creation. Only viewable on the "open" prop, which is enabled after a cropping
